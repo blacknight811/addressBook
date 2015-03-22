@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html ng-app="addressApp">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AngularJS Address Book</title>
+  <meta name="description" content="Address Book build using AngularJS">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+  	<!-- Brand and toggle get grouped for better mobile display -->
+  	<div class="navbar-header">
+  		<button type="button" class="navbar-toggle" ui-sref-active="active" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+  			<span class="sr-only">Toggle navigation</span>
+  			<span class="icon-bar"></span>
+  			<span class="icon-bar"></span>
+  			<span class="icon-bar"></span>
+  		</button>
+  		<a class="navbar-brand" ui-sref="home">Home</a>
+  	</div>
+  
+  	<!-- Collect the nav links, forms, and other content for toggling -->
+  	<div class="collapse navbar-collapse navbar-ex1-collapse">
+  		<ul class="nav navbar-nav">
+  			<li ui-sref-active="active"><a ui-sref="create" >Create</a></li>
+  		</ul>
+  	</div> <!-- /.navbar-collapse -->
+  </nav>
+
+  <div  class="col-md-6 col-md-offset-3">
+      <h2>Address Book - <small>( Total # of Contacts | <strong>{{contacts.length}}</strong> )</small></h2>
+      <!--Inject the view here-->
+      <div ui-view></div>
+  </div>
+
+  <!--Load all JavaScript at bottom for better performance-->
+  <script src="components/angular/angular.js"></script>
+  <script src="controllers.js"></script>
+  <script src="components/angular-route/angular-route.js"></script>
+  <script src="components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="components/angular-resource/angular-resource.js"></script>
+  <script src="app.js"></script>
+  <script src="pages/home/home.js"></script>
+  <script src="pages/create/create.js"></script>
+  <script src="components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<div class="row-fluid">
+    <div class="span12">
+        <p ng-show="App.loading">
+            <i class="icon-spinner icon-spin icon-large"></i> Please wait while loading content..
+        </p>
+        <form class="form-search">
+            <input type="text" ng-model="$.query" class="span12 search-query" placeholder="Filter by name"/>
+        </form>
+        <!-- <i class="icon-spinner icon-spin icon-large"></i> Spinner icon when loading content...-->
+
+        <div ng-repeat="contact in contacts">
+            <div class="panel panel-primary" ng-model="contacts">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {{contact.firstName + " " + contact.lastName}}
+                        <a ui-sref="edit"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a><span class="glyphicon glyphicon-trash pull-right"></span></a>
+                    </h3>
+                </div>
+                <address class="panel-body">
+                    {{contact.street}} <br/>
+                    {{contact.city + ', ' + contact.state + ' ' + contact.postal}} <br/>
+                    {{contact.phone}} <br/> {{contact.email}}
+                </address>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
