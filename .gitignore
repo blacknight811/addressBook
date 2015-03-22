@@ -44,4 +44,10 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-
+gulpfile.js
+karma.conf.js
+e2e-tests/
+.travis.yml
+.jshintrc
+.bowerrc
+app/components/
