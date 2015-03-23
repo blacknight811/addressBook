@@ -1,8 +1,9 @@
 'use strict';
 function MainCtrl ($scope, $log, contactsFactory) {
-    //$scope.contacts = contactsFactory.query();
+    $scope.contacts = contactsFactory.entries;
 
-    $log.log(contactsFactory);
+    $log.log($scope.contacts);
+    $log.log($scope.contacts.length);
 
 }
 
