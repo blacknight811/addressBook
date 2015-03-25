@@ -1,7 +1,7 @@
-<form name="addContact" action="">
+<form name="addContact" ng-submit="saveContact(contact)">
     <div class="form-group">
         <label for="firstName">First Name</label>
-        <input type="text" class="form-control" id="firstName" placeholder="Enter First Name"/>
+        <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" ng-model="contacts.firstName"/>
     </div>
     <div class="form-group">
         <label for="lastName">Last Name</label>

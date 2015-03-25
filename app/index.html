@@ -32,8 +32,8 @@
   	</div> <!-- /.navbar-collapse -->
   </nav>
 
-  <div class="col-md-6 col-md-offset-3">
-      <h2>Address Book - <small>( Total # of Contacts | <strong>{{contacts.length}}</strong> )</small></h2>
+  <div ng-controller="MainCtrl" class="col-md-6 col-md-offset-3">
+      <h2>Address Book - <small>( Total # of Contacts | <strong ng-bind="contactLength"></strong> )</small></h2>
       <!--Inject the view here-->
       <div ui-view></div>
   </div>
@@ -44,6 +44,7 @@
   <script src="components/angular-route/angular-route.js"></script>
   <script src="components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="components/angular-resource/angular-resource.js"></script>
+  <script src="components/requirejs/require.js"></script>
   <script src="app.js"></script>
   <script src="pages/home/home.js"></script>
   <script src="pages/create/create.js"></script>

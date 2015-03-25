@@ -1,24 +1,27 @@
-{"contacts": [
-  {
-          "id": 1,
-          "firstName": "Bryan",
-          "lastName": "Knight",
-          "email": "bjknight1980@gmail.com",
-          "street": "3545 Cactus Shadow St.",
-          "city": "Las Vegas",
-          "state": "NV",
-          "postal": "89129",
-          "phone": "702-808-7777"
-  },
-  {
-          "id": 2,
-          "firstName": "Carlos",
-          "lastName": "Summers",
-          "email": "losmusic@gmail.com",
-          "street": "1325 Hash St",
-          "city": "Las Vegas",
-          "state": "NV",
-          "postal": "89132",
-          "phone": "702-808-7777"
-  }
-]}
+{
+  "contacts": [
+    {
+      "id": 1,
+      "firstName": "Bryan",
+      "lastName": "Knight",
+      "email": "bjknight1980@gmail.com",
+      "street": "3545 Cactus Shadow St.",
+      "city": "Las Vegas",
+      "state": "NV",
+      "postal": "89129",
+      "phone": "702-808-7777"
+    },
+    {
+      "id": 2,
+      "firstName": "Carlos",
+      "lastName": "Summers",
+      "email": "losmusic@gmail.com",
+      "street": "1325 Hash St",
+      "city": "Las Vegas",
+      "state": "NV",
+      "postal": "89132",
+      "phone": "702-808-7777"
+    }
+  ],
+  "db": []
+}

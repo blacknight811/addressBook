@@ -10,57 +10,43 @@ var addressApp = angular.module('addressApp', ['ngRoute','ngResource','addressAp
         $stateProvider
 
             .state('home', {
-                url: '/home',
+                url: '/',
                 templateUrl: 'pages/home/partial-home.html',
-                controller: MainCtrl
+                controller: 'MainCtrl'
             })
 
             .state('create',{
                 url: '/create',
-                templateUrl: 'pages/create/partial-create.html'
+                templateUrl: 'pages/create/partial-create.html',
+                controller: 'CreateCtrl'
             })
             .state('edit', {
                 url: '/edit/:contactID',
                 templateUrl: 'pages/edit/partial-edit.html',
-                controller: EditCtrl
+                controller: 'EditCtrl'
             })
             .state('delete', {
-                url: '/add',
+                url: '/delete/:contactID',
                 templateUrl: 'pages/add/partial-add.html'
             });
     }]);
 
 //SERVICES=========================================================
-    addressApp.factory('contactsFactory', [function () {
-        var contactList = {};
+    addressApp.factory('Contacts', ['$resource','$log',function ContactsFactory ($resource,$log) {
 
-        contactList.entries = [
-            {
-                "id": 1,
-                "firstName": "Bryan",
-                "lastName": "Knight",
-                "email": "bjknight1980@gmail.com",
-                "street": "3545 Cactus Shadow St.",
-                "city": "Las Vegas",
-                "state": "NV",
-                "postal": "89129",
-                "phone": "702-439-3241"
-            },
-            {
-                "id": 2,
-                "firstName": "Carlos",
-                "lastName": "Summers",
-                "email": "losmusic@gmail.com",
-                "street": "1325 Hash St",
-                "city": "Las Vegas",
-                "state": "NV",
-                "postal": "89132",
-                "phone": "702-808-7777"
-            }
-        ];
+       return $resource('http://localhost:3000/contacts', {}, {
+           query: { method: 'GET', isArray: true },
+           create: { method: 'POST' }
+       });
+    }]);
 
-        return contactList;
+    addressApp.factory('Contact', ['$resource','$log',function ContactFactory ($resource,$log) {
 
+        return $resource('http://localhost:3000/contacts/:id', {id: '@id'}, {
+            show: { method: 'GET' },
+            update: { method: 'PUT', params: {id: '@id'} },
+            delete: { method: 'DELETE', params: {} }
+        });
     }]);
 
     addressApp.directive('contactWidget', function () {
@@ -69,8 +55,64 @@ var addressApp = angular.module('addressApp', ['ngRoute','ngResource','addressAp
             replace: true,
             templateUrl: '',
             scope: {
-                contact: '='
+                Contact: '='
             }
         };
     });
 
+//CONTROLLERS====================================================
+addressApp.controller('MainCtrl', ['$scope','$log','$resource','$location','Contacts', 'Contact', function($scope, $log, $resource, $location, Contacts, Contact) {
+    $scope.contacts = Contacts.query();
+
+    Contacts.query().$promise.then(function (data) {
+        $scope.contactLength = data.length;
+        //$log.log($scope.contactLength);
+        return $scope.contactLength;
+    });
+
+    $scope.deleteContact = function (contact) {
+
+        Contact.delete(contact);
+    };
+
+    $scope.$watch(function () {
+        return $scope.contacts;
+    },
+        function (contactsUpdate) {
+            $scope.contacts = contactsUpdate;
+        });
+}]);
+
+addressApp.controller('CreateCtrl', ['$scope', '$location', '$log', 'Contacts','Contact', function ($scope, $location, $log, Contacts, Contact) {
+    $scope.contact = new Contacts();
+    $scope.saveContact = function (contact) {
+        $scope.contact.$save(contact);
+    };
+}]);
+
+addressApp.controller('EditCtrl',['$scope','$stateParams','$location','Contacts','$log',function($scope, $stateParams, $location, Contacts,$log) {
+    $log.log($stateParams.contactID);
+    $scope.id = $stateParams.contactID;
+
+    var newContact = false;
+
+    if ($stateParams.contactId) {
+        $scope.Contact = $scope.contacts[$stateParams.contactId];
+    } else {
+        $scope.Contact = {};
+        newContact = true;
+    }
+    //$scope.saveContact = function () {
+    //    if (newContact) {
+    //        //$scope.contacts.push($scope.Contact);
+    //        $scope.entry = new Contacts();
+    //
+    //        Contacts.save($scope.entry);
+    //    }
+    //    $location.path('/home');
+    //};
+
+    //Contacts.save($scope.entry, function () {
+    //
+    //});
+}]);
