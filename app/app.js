@@ -61,7 +61,7 @@ var addressApp = angular.module('addressApp', ['ngRoute','ngResource','addressAp
     });
 
 //CONTROLLERS====================================================
-addressApp.controller('MainCtrl', ['$scope','$log','$resource','$location','Contacts', 'Contact', function($scope, $log, $resource, $location, Contacts, Contact) {
+addressApp.controller('MainCtrl', ['$scope','$log','$resource','$location','$window','Contacts', 'Contact', function($scope, $log, $resource, $location, $window, Contacts, Contact) {
     $scope.contacts = Contacts.query();
 
     Contacts.query().$promise.then(function (data) {
@@ -72,7 +72,9 @@ addressApp.controller('MainCtrl', ['$scope','$log','$resource','$location','Cont
 
     $scope.deleteContact = function (contact) {
 
-        Contact.delete(contact);
+        Contact.delete(contact, function () {
+            $window.location.href = '';
+        });
     };
 
     $scope.$watch(function () {
@@ -84,9 +86,12 @@ addressApp.controller('MainCtrl', ['$scope','$log','$resource','$location','Cont
 }]);
 
 addressApp.controller('CreateCtrl', ['$scope', '$location', '$log', 'Contacts','Contact', function ($scope, $location, $log, Contacts, Contact) {
-    $scope.contact = new Contacts();
+    $scope.contact = new Contact();
     $scope.saveContact = function (contact) {
-        $scope.contact.$save(contact);
+        //$log.info(contact);
+        $scope.contact.$save(function () {
+            $log.log('Entry Saved!');
+        }).then($log.info(contact));
     };
 }]);
 
