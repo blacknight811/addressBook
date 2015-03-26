@@ -4,11 +4,14 @@
             <i class="icon-spinner icon-spin icon-large"></i> Please wait while loading content..
         </p>
         <form class="form-search">
-            <input type="text" ng-model="$.query" class="span12 search-query" placeholder="Filter by name"/>
+
+            <input type="text" ng-model="$.query" class="form-control search-query" placeholder="Filter Contacts"/>
+            <span class="glyphicon glyphicon-sort-by-alphabet-alt sort " ng-click=""></span>
+
         </form>
         <!-- <i class="icon-spinner icon-spin icon-large"></i> Spinner icon when loading content...-->
 
-        <div ng-repeat="contact in contacts">
+        <div ng-repeat="contact in contacts | orderBy: 'lastName' | filter:$.query ">
             <div class="panel panel-primary" ng-model="contacts">
                 <div class="panel-heading">
                     <h3 class="panel-title">

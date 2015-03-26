@@ -21,17 +21,22 @@ var addressApp = angular.module('addressApp', ['ngRoute','ngResource','addressAp
                 controller: 'CreateCtrl'
             })
             .state('edit', {
-                url: '/edit/:contactID',
+                url: '/edit/{contactID:int}',
                 templateUrl: 'pages/edit/partial-edit.html',
                 controller: 'EditCtrl'
-            })
-            .state('delete', {
-                url: '/delete/:contactID',
-                templateUrl: 'pages/add/partial-add.html'
             });
+
     }]);
 
 //SERVICES=========================================================
+    addressApp.factory('Db', ['$resource','$log',function DbFactory ($resource,$log) {
+
+        return $resource('http://localhost:3000/db', {}, {
+            query: { method: 'GET', isArray: true },
+            create: { method: 'POST' }
+        });
+    }]);
+
     addressApp.factory('Contacts', ['$resource','$log',function ContactsFactory ($resource,$log) {
 
        return $resource('http://localhost:3000/contacts', {}, {
@@ -61,8 +66,9 @@ var addressApp = angular.module('addressApp', ['ngRoute','ngResource','addressAp
     });
 
 //CONTROLLERS====================================================
-addressApp.controller('MainCtrl', ['$scope','$log','$resource','$location','$window','Contacts', 'Contact', function($scope, $log, $resource, $location, $window, Contacts, Contact) {
+addressApp.controller('MainCtrl', ['$scope','$log','$resource','$location','$window','Contacts', 'Contact','Db', function($scope, $log, $resource, $location, $window,  Contacts, Contact, Db) {
     $scope.contacts = Contacts.query();
+    $log.log($scope.contacts);
 
     Contacts.query().$promise.then(function (data) {
         $scope.contactLength = data.length;
@@ -77,12 +83,12 @@ addressApp.controller('MainCtrl', ['$scope','$log','$resource','$location','$win
         });
     };
 
-    $scope.$watch(function () {
-        return $scope.contacts;
-    },
-        function (contactsUpdate) {
-            $scope.contacts = contactsUpdate;
-        });
+    //$scope.$watch(function () {
+    //    return $scope.contact;
+    //},
+    //    function (contactsUpdate) {
+    //        $scope.contact = contactsUpdate;
+    //    });
 }]);
 
 addressApp.controller('CreateCtrl', ['$scope', '$location', '$log', 'Contacts','Contact', function ($scope, $location, $log, Contacts, Contact) {
@@ -95,27 +101,41 @@ addressApp.controller('CreateCtrl', ['$scope', '$location', '$log', 'Contacts','
     };
 }]);
 
-addressApp.controller('EditCtrl',['$scope','$stateParams','$location','Contacts','$log',function($scope, $stateParams, $location, Contacts,$log) {
-    $log.log($stateParams.contactID);
+addressApp.controller('EditCtrl',['$scope','$stateParams','$location','$filter','Contacts','$log',function($scope, $stateParams, $location, $filter, Contacts,$log) {
     $scope.id = $stateParams.contactID;
+    $log.log($scope.id ,'good');
+
+    $scope.thisContact = Contacts.query().$promise.then(function (data) {
+        $scope.singleContact = $filter('filter')(data, function (d) {
+            return d.id === $scope.id;
+        })[0];
+    });
+
+    $log.log($scope.thisContact);
 
     var newContact = false;
 
-    if ($stateParams.contactId) {
-        $scope.Contact = $scope.contacts[$stateParams.contactId];
+    if ($scope.id) {
+        $scope.Contact = Contacts.query().$promise.then(function (data) {
+            //$log.log('returned array of objects');
+        });
+        //$scope.Contact = $scope.contacts[$scope.id];
+        //$log.info($scope.Contact);
+        //$log.info(newContact);
     } else {
         $scope.Contact = {};
         newContact = true;
+        //$log.info('No contact id found!');
     }
-    //$scope.saveContact = function () {
-    //    if (newContact) {
-    //        //$scope.contacts.push($scope.Contact);
-    //        $scope.entry = new Contacts();
-    //
-    //        Contacts.save($scope.entry);
-    //    }
-    //    $location.path('/home');
-    //};
+    $scope.saveContact = function () {
+        if (newContact) {
+            //$scope.contacts.push($scope.Contact);
+            $scope.entry = new Contacts();
+
+            Contacts.save($scope.entry);
+        }
+        $location.path('/home');
+    };
 
     //Contacts.save($scope.entry, function () {
     //

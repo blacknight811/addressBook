@@ -28,3 +28,14 @@
   content: "";
   padding: 0;
 }
+
+.search-query{
+    width: 40%;
+    margin-bottom: 1rem;
+    border: solid thin;
+    display: inline-block;
+}
+
+.sort{
+    font-size: 2rem;
+}

@@ -2,35 +2,35 @@
     <form name="editForm" ng-submit="saveContact()">
         <div class="form-group">
             <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Name" ng-model="contacts[id].firstName"/>
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Name" ng-model="singleContact.firstName"/>
         </div>
         <div class="form-group">
             <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last Name" ng-model="contacts[id].lastName"/>
+            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last Name" ng-model="singleContact.lastName"/>
         </div>
         <div class="form-group">
             <label for="street">Street</label>
-            <input type="text" class="form-control" id="street" name="street" placeholder="Enter Street Number & Name" ng-model="contacts[id].street"/>
+            <input type="text" class="form-control" id="street" name="street" placeholder="Enter Street Number & Name" ng-model="singleContact.street"/>
         </div>
         <div class="form-group">
             <label for="city">City</label>
-            <input type="text" class="form-control" id="city" name="city" placeholder="Enter City" ng-model="contacts[id].city"/>
+            <input type="text" class="form-control" id="city" name="city" placeholder="Enter City" ng-model="singleContact.city"/>
         </div>
         <div class="form-group">
             <label for="state">State</label>
-            <input type="text" class="form-control" id="state" name="state" placeholder="Enter State" ng-model="contacts[id].state"/>
+            <input type="text" class="form-control" id="state" name="state" placeholder="Enter State" ng-model="singleContact.state"/>
         </div>
         <div class="form-group">
             <label for="postal">Postal Code</label>
-            <input type="text" class="form-control" id="postal" name="postal" placeholder="Enter Postal Code" ng-model="contacts[id].postal"/>
+            <input type="text" class="form-control" id="postal" name="postal" placeholder="Enter Postal Code" ng-model="singleContact.postal"/>
         </div>
         <div class="form-group">
             <label for="phone">Telephone</label>
-            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" ng-model="contacts[id].phone"/>
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" ng-model="singleContact.phone"/>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email Address" ng-model="contacts[id].email"/>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email Address" ng-model="singleContact.email"/>
         </div>
 
         <button type="submit" class="btn btn-primary">Edit</button>
